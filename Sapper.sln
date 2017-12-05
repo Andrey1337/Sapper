@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sapper", "Sapper\Sapper\Sapper.csproj", "{C350D3AC-AB7E-4DD3-AD5F-FFFDB0B8EEFF}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "SapperContent", "Sapper\SapperContent\SapperContent.contentproj", "{63DD3B51-039A-4293-AACA-9D090A241C21}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C350D3AC-AB7E-4DD3-AD5F-FFFDB0B8EEFF}.Debug|x86.ActiveCfg = Debug|x86
+		{C350D3AC-AB7E-4DD3-AD5F-FFFDB0B8EEFF}.Debug|x86.Build.0 = Debug|x86
+		{C350D3AC-AB7E-4DD3-AD5F-FFFDB0B8EEFF}.Release|x86.ActiveCfg = Release|x86
+		{C350D3AC-AB7E-4DD3-AD5F-FFFDB0B8EEFF}.Release|x86.Build.0 = Release|x86
+		{63DD3B51-039A-4293-AACA-9D090A241C21}.Debug|x86.ActiveCfg = Debug|x86
+		{63DD3B51-039A-4293-AACA-9D090A241C21}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
