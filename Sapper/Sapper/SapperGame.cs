@@ -14,18 +14,22 @@ namespace Sapper
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Game1 : Microsoft.Xna.Framework.Game
+    public class SapperGame : Microsoft.Xna.Framework.Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        readonly GraphicsDeviceManager _graphics;
+        SpriteBatch _spriteBatch;
 
-        public Game1()
+        public Dictionary<string, Texture2D> GameTextures { get; private set; }
+        private Board _board;
+        public SapperGame()
         {
-            graphics = new GraphicsDeviceManager(this);
+            _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            _graphics.PreferredBackBufferWidth = 900;
+            _graphics.PreferredBackBufferHeight = 1000;
         }
 
- 
+
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
@@ -33,30 +37,30 @@ namespace Sapper
             base.Initialize();
         }
 
-  
+
         protected override void LoadContent()
         {
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            GameTextures = new Dictionary<string, Texture2D>();
             
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            
+            _board = new Board(8);
         }
 
-        
+
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
         }
-       
+
         protected override void Update(GameTime gameTime)
         {
-            
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
             base.Update(gameTime);
         }
-        
+
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
