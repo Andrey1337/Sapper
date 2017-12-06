@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Sapper
@@ -20,7 +16,10 @@ namespace Sapper
             CellBackgroundTexture = cellBackGroundTexture;
             PositionRectangle = position;
         }
+
         public Rectangle Rectangle { get; protected set; }
+
+        public abstract void OnClick();
 
         public abstract void Draw(SpriteBatch spriteBatch);
 

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mime;
-using System.Text;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Sapper
+namespace Sapper.Utility
 {
     static class TexturesHelper
     {
@@ -20,8 +16,9 @@ namespace Sapper
                 return _gameTextures;
 
 
-            _gameTextures.Add("cellBackgroundTexture", CreateTexture(graphicsDevice));
-            _gameTextures.Add("mineTexture", CreateTexture(graphicsDevice));
+            //_gameTextures.Add("cleanTexture", CreateTexture(graphicsDevice));
+            _gameTextures.Add("cleanTexture", contentManager.Load<Texture2D>("cleanTexture"));
+            _gameTextures.Add("mineTexture", contentManager.Load<Texture2D>("mineTexture"));
 
             return _gameTextures;
 
@@ -29,7 +26,7 @@ namespace Sapper
 
         private static Texture2D CreateTexture(GraphicsDevice graphicsDevice)
         {
-            return new Texture2D(graphicsDevice, 0, 0);
+            return new Texture2D(graphicsDevice, 1, 1);
         }
 
     }

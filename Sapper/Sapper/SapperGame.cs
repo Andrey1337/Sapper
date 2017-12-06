@@ -11,61 +11,73 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Sapper
 {
-    /// <summary>
-    /// This is the main type for your game
-    /// </summary>
     public class SapperGame : Microsoft.Xna.Framework.Game
     {
         readonly GraphicsDeviceManager _graphics;
         SpriteBatch _spriteBatch;
+        private ContentManager _contentManager;
 
         public Dictionary<string, Texture2D> GameTextures { get; private set; }
+        public Dictionary<string, SpriteFont> GameFonts { get; private set; }
+
+        public bool isGameStarted { get; set; }
+
+        private TimeSpan _inGameTime;
+
         private Board _board;
+
+        public int MinesNum { get; private set; }
+
         public SapperGame()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             _graphics.PreferredBackBufferWidth = 900;
-            _graphics.PreferredBackBufferHeight = 1000;
+            _graphics.PreferredBackBufferHeight = 900;
+            IsMouseVisible = true;
         }
 
+        public void LoseGame()
+        {
+
+        }
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
             base.Initialize();
         }
 
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-            GameTextures = new Dictionary<string, Texture2D>();
-            
-            _board = new Board(8);
+
+            GameFonts = Utility.FontsHelper.LoadFonts(Content);
+            GameTextures = Utility.TexturesHelper.LoadTextures(GraphicsDevice, Content);
+            _board = new Board(this, 8);
+            _inGameTime = new TimeSpan();
         }
 
-
-        protected override void UnloadContent()
-        {
-            // TODO: Unload any non ContentManager content here
-        }
 
         protected override void Update(GameTime gameTime)
         {
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+                Exit();
 
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
+            if (isGameStarted)
+                _inGameTime += gameTime.ElapsedGameTime;
+
+            _board.Update(gameTime);
 
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
+            _spriteBatch.Begin();
+            GraphicsDevice.Clear(Color.Cyan);
+            _board.Draw(_spriteBatch);
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
