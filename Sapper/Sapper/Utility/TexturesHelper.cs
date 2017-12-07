@@ -15,8 +15,6 @@ namespace Sapper.Utility
             else
                 return _gameTextures;
 
-
-            //_gameTextures.Add("cleanTexture", CreateTexture(graphicsDevice));
             _gameTextures.Add("cleanTexture", contentManager.Load<Texture2D>("cleanTexture"));
             _gameTextures.Add("mineTexture", contentManager.Load<Texture2D>("mineTexture"));
 

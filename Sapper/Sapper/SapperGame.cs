@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -20,11 +21,13 @@ namespace Sapper
         public Dictionary<string, Texture2D> GameTextures { get; private set; }
         public Dictionary<string, SpriteFont> GameFonts { get; private set; }
 
-        public bool isGameStarted { get; set; }
+        public bool IsGameStarted { get; set; }
+
+        public bool IsGameLost { get; set; }
 
         private TimeSpan _inGameTime;
 
-        private Board _board;
+        public Board Board { get; set; }
 
         public int MinesNum { get; private set; }
 
@@ -39,7 +42,7 @@ namespace Sapper
 
         public void LoseGame()
         {
-
+            IsGameLost = true;
         }
 
         protected override void Initialize()
@@ -51,23 +54,25 @@ namespace Sapper
 
         protected override void LoadContent()
         {
-
             GameFonts = Utility.FontsHelper.LoadFonts(Content);
             GameTextures = Utility.TexturesHelper.LoadTextures(GraphicsDevice, Content);
-            _board = new Board(this, 8);
+            Board = new Board(this, 8);
+            MinesNum = 8;
             _inGameTime = new TimeSpan();
         }
-
 
         protected override void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if (isGameStarted)
+            if (IsGameLost)
+                return;
+
+            if (IsGameStarted)
                 _inGameTime += gameTime.ElapsedGameTime;
 
-            _board.Update(gameTime);
+            Board.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -75,8 +80,8 @@ namespace Sapper
         protected override void Draw(GameTime gameTime)
         {
             _spriteBatch.Begin();
-            GraphicsDevice.Clear(Color.Cyan);
-            _board.Draw(_spriteBatch);
+            GraphicsDevice.Clear(new Color(237, 236, 240));
+            Board.Draw(_spriteBatch);
             _spriteBatch.End();
 
             base.Draw(gameTime);

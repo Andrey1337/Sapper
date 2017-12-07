@@ -10,17 +10,16 @@ namespace Sapper
     class MineCell : Cell
     {
         private readonly Texture2D _mineTexture;
-        private readonly SapperGame _sapperGame;
+
         private bool _isExploded;
-        public MineCell(Texture2D cellBackGroundTexture, Texture2D mineTexture, Rectangle position, SapperGame sapperGame) : base(cellBackGroundTexture, position)
+        public MineCell(SapperGame game, Texture2D cellBackGroundTexture, Texture2D mineTexture, Rectangle position, int boardPositionX, int boardPositionY) : base(game, cellBackGroundTexture, position, boardPositionX, boardPositionY)
         {
             _mineTexture = mineTexture;
-            _sapperGame = sapperGame;
         }
 
         public override void OnClick()
         {
-            _sapperGame.LoseGame();
+            SapperGame.LoseGame();
             _isExploded = true;
         }
 
@@ -28,19 +27,19 @@ namespace Sapper
         {
             if (_isExploded)
             {
-                spriteBatch.Draw(CellBackgroundTexture, Rectangle, Color.Red);
-                spriteBatch.Draw(_mineTexture, Rectangle, Color.White);
+                spriteBatch.Draw(CellBackgroundTexture, PositionRectangle, Color.Red);
+                spriteBatch.Draw(_mineTexture, PositionRectangle, Color.White);
                 return;
             }
 
             if (IsVisible)
             {
-                spriteBatch.Draw(CellBackgroundTexture, Rectangle, Color.Blue);
-                spriteBatch.Draw(_mineTexture, Rectangle, Color.White);
+                spriteBatch.Draw(CellBackgroundTexture, PositionRectangle, new Color(194, 194, 214));
+                spriteBatch.Draw(_mineTexture, PositionRectangle, Color.White);
             }
             else
             {
-                spriteBatch.Draw(CellBackgroundTexture, Rectangle, Color.Blue);
+                spriteBatch.Draw(CellBackgroundTexture, PositionRectangle, new Color(194, 194, 214));
             }
         }
     }
