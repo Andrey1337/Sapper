@@ -35,7 +35,13 @@ namespace Sapper
             IsFlagOn = !IsFlagOn;
         }
 
-        public abstract void Draw(SpriteBatch spriteBatch);
+        public virtual void Draw(SpriteBatch spriteBatch)
+        {
+            if (IsFlagOn)
+            {
+                spriteBatch.Draw(SapperGame.GameTextures["flagTexture"], new Rectangle(PositionRectangle.X + 10, PositionRectangle.Y + 10, PositionRectangle.Width - 20, PositionRectangle.Height - 20), Color.White);
+            }
+        }
 
     }
 }

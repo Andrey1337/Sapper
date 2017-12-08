@@ -17,6 +17,8 @@ namespace Sapper
 
         public override void OnClick()
         {
+            if (IsFlagOn) return;
+
             IsVisible = true;
             if (NearMinesNumber == 0 && SapperGame.IsGameStarted)
             {
@@ -49,6 +51,7 @@ namespace Sapper
             else
             {
                 spriteBatch.Draw(CellBackgroundTexture, PositionRectangle, new Color(194, 194, 214));
+                base.Draw(spriteBatch);
             }
 
         }

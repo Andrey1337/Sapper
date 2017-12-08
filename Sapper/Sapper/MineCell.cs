@@ -19,6 +19,7 @@ namespace Sapper
 
         public override void OnClick()
         {
+            if (IsFlagOn) return;
             SapperGame.LoseGame();
             _isExploded = true;
         }
@@ -40,7 +41,9 @@ namespace Sapper
             else
             {
                 spriteBatch.Draw(CellBackgroundTexture, PositionRectangle, new Color(194, 194, 214));
+
             }
+            base.Draw(spriteBatch);
         }
     }
 }

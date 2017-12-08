@@ -17,6 +17,7 @@ namespace Sapper.Utility
 
             _gameTextures.Add("cleanTexture", contentManager.Load<Texture2D>("cleanTexture"));
             _gameTextures.Add("mineTexture", contentManager.Load<Texture2D>("mineTexture"));
+            _gameTextures.Add("flagTexture", contentManager.Load<Texture2D>("flagTexture"));
 
             return _gameTextures;
 

@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Sapper
 {
-    public class SapperGame : Microsoft.Xna.Framework.Game
+    public class SapperGame : Game
     {
         readonly GraphicsDeviceManager _graphics;
         SpriteBatch _spriteBatch;
@@ -24,12 +24,11 @@ namespace Sapper
         public bool IsGameStarted { get; set; }
 
         public bool IsGameLost { get; set; }
+        public bool IsGameWin { get; set; }
 
         private TimeSpan _inGameTime;
 
         public Board Board { get; set; }
-
-        public int MinesNum { get; private set; }
 
         public SapperGame()
         {
@@ -56,17 +55,21 @@ namespace Sapper
         {
             GameFonts = Utility.FontsHelper.LoadFonts(Content);
             GameTextures = Utility.TexturesHelper.LoadTextures(GraphicsDevice, Content);
-            Board = new Board(this, 8);
-            MinesNum = 8;
+
+            Board = new Board(this, 8, 8);
             _inGameTime = new TimeSpan();
         }
 
+        public void WinGame()
+        {
+            IsGameWin = true;
+        }
         protected override void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if (IsGameLost)
+            if (IsGameLost || IsGameWin)
                 return;
 
             if (IsGameStarted)
@@ -82,6 +85,10 @@ namespace Sapper
             _spriteBatch.Begin();
             GraphicsDevice.Clear(new Color(237, 236, 240));
             Board.Draw(_spriteBatch);
+            _spriteBatch.DrawString(GameFonts["defaultFont"], Board.NumOfFlags.ToString(), new Vector2(100, 100), Color.Black);
+            if (IsGameWin)
+                _spriteBatch.DrawString(GameFonts["defaultFont"], "You win the game", new Vector2(200, 100), Color.Black);
+
             _spriteBatch.End();
 
             base.Draw(gameTime);
